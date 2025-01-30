@@ -1,0 +1,40 @@
+services:
+  backend:
+    tty: true
+    # Habilitar o container enquanto não for parado
+    restart: unless-stopped
+    # Nome da imagem que será feito
+    image: media-management
+    # Espaço que está construindo a imagem
+    env_file:
+      - .env
+    build:
+      context: ./
+      # O nome do arquivo docker
+      dockerfile: ./dockerfile
+    # Persistencia de dados, criando subconteiners para o container principal
+    volumes:
+      - ./:/home/node/app/
+      - node_modules:/home/node/app/node_modules
+    ports:
+      - 8000:8000
+    # Depende do banco de dados iniciar para subir o container
+    depends_on:
+      - db
+    # Estabelece a comunicacao do servico com o db
+    links:
+      - db
+
+  db:
+    image: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: mediamanager
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+      - 3306:3306
+
+volumes:
+  node_modules:
