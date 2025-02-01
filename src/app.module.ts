@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Category } from '@entities/category.entity';
@@ -6,8 +6,11 @@ import { History } from '@entities/history.entity';
 import { Media } from '@entities/media.entity';
 import { User } from '@entities/user.entity';
 
+import { AppLoggerMiddleware } from '@middlewares/applogger';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
@@ -21,8 +24,13 @@ import { AppService } from './app.service';
       entities: [User, Media, History, Category],
       synchronize: true,
     }),
+    MediaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): void {
+    consumer.apply(AppLoggerMiddleware).forRoutes('*');
+  }
+}

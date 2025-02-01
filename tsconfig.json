@@ -18,7 +18,9 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@entities/*": ["src/database/entities/*"]
+      "@entities/*": ["src/database/entities/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@/*": ["src/*"]
     }
   }
 }
