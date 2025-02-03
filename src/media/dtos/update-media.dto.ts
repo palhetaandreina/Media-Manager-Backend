@@ -4,7 +4,7 @@ import { Transform, Type } from 'class-transformer';
 import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
 // Dto vai validar os valores do request
-export class UpdateMediaDto {
+export class UpdateMediaDTO {
   @Type(() => Number)
   @IsNumber()
   id: number;
