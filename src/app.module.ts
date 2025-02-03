@@ -11,6 +11,7 @@ import { AppLoggerMiddleware } from '@middlewares/applogger';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MediaModule } from './media/media.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { MediaModule } from './media/media.module';
       synchronize: true,
     }),
     MediaModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

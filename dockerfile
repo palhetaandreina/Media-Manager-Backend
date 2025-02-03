@@ -10,6 +10,9 @@ COPY package.json pnpm-lock.yaml ./
 # Instalar o pnpm
 RUN npm i -g pnpm
 
+# Instalar cli do nest
+RUN npm i -g @nestjs/cli 
+
 # Instalar as dependências
 RUN pnpm i
 

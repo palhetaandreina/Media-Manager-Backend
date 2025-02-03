@@ -11,8 +11,8 @@ import {
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { CreateMediaDto } from './dtos/create-media.dto';
-import { UpdateMediaDto } from './dtos/update-media.dto';
+import { CreateMediaDTO } from './dtos/create-media.dto';
+import { UpdateMediaDTO } from './dtos/update-media.dto';
 import { MediaService } from './media.service';
 
 /// Criando rotas de requisicao e valida os dados de entrada
@@ -40,7 +40,7 @@ export class MediaController {
 
   @Post()
   // Criando nova midia e retornando um status http em caso de falha
-  async createMedia(@Body() media: CreateMediaDto, @Res() res: Response) {
+  async createMedia(@Body() media: CreateMediaDTO, @Res() res: Response) {
     return await this.service
       .createMedia(media.toEntity())
       .then((media: Media) => {
@@ -59,7 +59,7 @@ export class MediaController {
   }
 
   @Patch()
-  updateMedia(@Body() media: UpdateMediaDto) {
+  updateMedia(@Body() media: UpdateMediaDTO) {
     return this.service.updateMedia(media.toEntity());
   }
 }

@@ -3,7 +3,7 @@ import { Media } from '@entities/media.entity';
 import { Transform, Type } from 'class-transformer';
 import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
-export class CreateMediaDto {
+export class CreateMediaDTO {
   @Type(() => Number)
   @Transform((params) => params.value === 1)
   @IsBoolean()
