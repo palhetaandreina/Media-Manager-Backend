@@ -1,8 +1,10 @@
+import { IsNumber } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Category {
   @PrimaryGeneratedColumn()
+  @IsNumber()
   id: number;
 
   @Column('varchar', {
