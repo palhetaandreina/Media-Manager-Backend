@@ -3,6 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { UserDAO } from './user.dao';
 
 @Injectable()
+
+// Transformando os dados do dto e se comunicando com o dao
 export class UserService {
   constructor(private dao: UserDAO) {}
 
