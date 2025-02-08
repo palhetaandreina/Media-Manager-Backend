@@ -10,9 +10,10 @@ import { AppLoggerMiddleware } from '@middlewares/applogger';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CategoryModule } from './category/category.module';
+import { HistoryModule } from './history/history.module';
 import { MediaModule } from './media/media.module';
 import { UserModule } from './user/user.module';
-import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { CategoryModule } from './category/category.module';
     MediaModule,
     UserModule,
     CategoryModule,
+    HistoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

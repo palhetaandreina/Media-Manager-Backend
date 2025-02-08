@@ -12,8 +12,13 @@ export class UserDAO {
   ) {}
 
   findById(id: number) {
-    return this.repository.findOneBy({
-      id: id,
+    return this.repository.findOne({
+      where: { id: id },
+      relations: {
+        history: {
+          media: true,
+        },
+      },
     });
   }
 
