@@ -1,4 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Category } from './category.entity';
 import { History } from './history.entity';
 
@@ -10,7 +16,7 @@ export class Media {
   @Column({ default: true })
   type: boolean;
 
-  @OneToMany(() => Category, (category) => category.id)
+  @ManyToOne(() => Category, (category) => category.id)
   category: Category;
 
   @OneToMany(() => History, (history) => history.media)
