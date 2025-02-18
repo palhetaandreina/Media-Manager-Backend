@@ -26,6 +26,12 @@ export class UserDAO {
     return this.repository.find();
   }
 
+  findByEmail(email: string) {
+    return this.repository.findOneBy({
+      email: email,
+    });
+  }
+
   create(user: User) {
     return this.repository.save(user);
   }

@@ -1,3 +1,4 @@
+import { AuthGuard } from '@/auth/auth.guard';
 import { Media } from '@entities/media.entity';
 import {
   Body,
@@ -9,13 +10,15 @@ import {
   Patch,
   Post,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { CreateMediaDTO } from './dtos/create-media.dto';
 import { UpdateMediaDTO } from './dtos/update-media.dto';
 import { MediaService } from './media.service';
 
-/// Criando rotas de requisicao e valida os dados de entrada
+/// Cria as rotas de requisicao e valida os dados de entrada
+@UseGuards(AuthGuard)
 @Controller('media')
 export class MediaController {
   constructor(private readonly service: MediaService) {}

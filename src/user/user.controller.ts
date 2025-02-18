@@ -1,3 +1,4 @@
+import { AuthGuard } from '@/auth/auth.guard';
 import { User } from '@entities/user.entity';
 import {
   Body,
@@ -8,27 +9,27 @@ import {
   Param,
   Patch,
   Post,
+  Req,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { CreateUserDTO } from './dtos/create-user.dto';
 import { UpdateUserDTO } from './dtos/update-user.dto';
 import { UserService } from './user.service';
 
+@UseGuards(AuthGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly service: UserService) {}
 
+  // buscar um usuário por id
   @Get()
-  getUsers() {
-    return this.service.getUsers();
+  getUserById(@Req() req) {
+    return this.service.getUserById(req.user.sub);
   }
 
-  @Get(':id')
-  getUserById(@Param('id') id: number) {
-    return this.service.getUserById(id);
-  }
-
+  // Criar um novo usuário e respondendo com um status http
   @Post()
   async createUser(@Body() user: CreateUserDTO, @Res() res: Response) {
     return await this.service
@@ -43,11 +44,13 @@ export class UserController {
       });
   }
 
+  // Deletando um usuário por id
   @Delete(':id')
   deleteUser(@Param('id') id: number) {
     return this.service.deleteUser(id);
   }
 
+  // Atualizando um usuário
   @Patch()
   updateUser(@Body() user: UpdateUserDTO) {
     return this.service.updateUser(user.toEntity());

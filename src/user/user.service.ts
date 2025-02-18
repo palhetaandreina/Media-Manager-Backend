@@ -16,6 +16,10 @@ export class UserService {
     return this.dao.findById(id);
   }
 
+  getUserByEmail(email: string) {
+    return this.dao.findByEmail(email);
+  }
+
   createUser(user: User) {
     return this.dao.create(user);
   }

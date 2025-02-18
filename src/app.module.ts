@@ -14,6 +14,7 @@ import { CategoryModule } from './category/category.module';
 import { HistoryModule } from './history/history.module';
 import { MediaModule } from './media/media.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { UserModule } from './user/user.module';
     UserModule,
     CategoryModule,
     HistoryModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

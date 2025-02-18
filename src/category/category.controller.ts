@@ -1,3 +1,4 @@
+import { AuthGuard } from '@/auth/auth.guard';
 import { Category } from '@entities/category.entity';
 import {
   Body,
@@ -9,12 +10,14 @@ import {
   Patch,
   Post,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { CategoryService } from './category.service';
 import { CreateCategoryDTO } from './dtos/create-category.dto';
 import { UpdateCategoryDTO } from './dtos/update-category.dto';
 
+@UseGuards(AuthGuard)
 @Controller('category')
 export class CategoryController {
   constructor(private readonly service: CategoryService) {}

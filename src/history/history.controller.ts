@@ -1,13 +1,24 @@
+import { AuthGuard } from '@/auth/auth.guard';
 import { History } from '@entities/history.entity';
-import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { CreateHistoryDTO } from './dto/create-history.dto';
 import { HistoryService } from './history.service';
 
+@UseGuards(AuthGuard)
 @Controller('history')
 export class HistoryController {
   constructor(private readonly service: HistoryService) {}
 
+  @UseGuards(AuthGuard)
   @Get()
   getHistory() {
     return this.service.getHistory();
