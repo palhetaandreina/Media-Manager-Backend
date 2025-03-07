@@ -1,14 +1,18 @@
 import { User } from '@entities/user.entity';
-import { IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export class CreateUserDTO {
   @IsString()
+  @IsNotEmpty()
+  @MinLength(5)
   name: string;
 
-  @IsString()
+  @IsEmail()
+  @IsNotEmpty()
   email: string;
 
   @IsString()
+  @IsNotEmpty()
   password: string;
 
   public toEntity(): User {

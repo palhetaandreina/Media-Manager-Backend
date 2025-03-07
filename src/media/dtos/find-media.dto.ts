@@ -1,13 +1,13 @@
 import { Type } from 'class-transformer';
 import { IsDate, IsEnum, IsOptional } from 'class-validator';
 
-export enum FindHistoryByOptions {
+export enum FindMediaByOptions {
   day = 'day',
   month = 'month',
   year = 'year',
 }
 
-export class FindHistoryDTO {
+export class FindMediaDTO {
   @IsDate()
   @Type(() => Date)
   from: Date;
@@ -17,6 +17,6 @@ export class FindHistoryDTO {
   to: Date = new Date();
 
   @IsOptional()
-  @IsEnum(FindHistoryByOptions)
-  by: FindHistoryByOptions = FindHistoryByOptions.day;
+  @IsEnum(FindMediaByOptions)
+  by: FindMediaByOptions = FindMediaByOptions.day;
 }

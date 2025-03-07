@@ -1,6 +1,6 @@
 import { IsNumber } from 'class-validator';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { History } from './history.entity';
+import { Media } from './media.entity';
 
 @Entity()
 export class User {
@@ -20,6 +20,6 @@ export class User {
   @Column({ length: 50 })
   email: string;
 
-  @OneToMany(() => History, (history) => history.user)
-  history: History[];
+  @OneToMany(() => Media, (media) => media.user)
+  media: Media[];
 }

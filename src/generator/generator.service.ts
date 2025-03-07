@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Category } from '@entities/category.entity';
-import { History } from '@entities/history.entity';
 import { Media } from '@entities/media.entity';
 import { User } from '@entities/user.entity';
 
@@ -18,8 +17,6 @@ export class GeneratorService {
     private mediaRepository: Repository<Media>,
     @InjectRepository(Category)
     private categoryRepository: Repository<Category>,
-    @InjectRepository(History)
-    private historyRepository: Repository<History>,
   ) {}
 
   private getRandom(min: number, max: number) {
@@ -45,30 +42,37 @@ export class GeneratorService {
     return categories;
   }
 
-  private async createMedias(categories: Category[]) {
-    const medias: Media[] = [];
+  private async createMedias(categories: Category[], users: User[]) {
+    for (const user of users) {
+      for (let i = 0; i < this.getRandom(10, 30); i++) {
+        const date = new Date();
+        date.setDate(date.getDate() - this.getRandom(0, 30));
 
-    // Criando entre 20 e 30 midias aleatoriamente
-    for (let i = 0; i < this.getRandom(20, 30); i++) {
-      const category = categories.at(this.getRandom(0, categories.length));
+        const category = categories.at(
+          this.getRandom(0, categories.length - 1),
+        );
 
-      const media = await this.mediaRepository.save({
-        category: category,
-        duration: this.getRandom(60, 120),
-        title: 'Movie #' + (i + 1),
-        type: Boolean(this.getRandom(0, 1)),
-        history: [],
-      });
+        if (!category) {
+          continue;
+        }
 
-      this.logger.debug(`Criando media: ${JSON.stringify(media)}`);
+        const media = await this.mediaRepository.save({
+          category: category,
+          duration: this.getRandom(60, 120),
+          title: 'Movie #' + (i + 1),
+          type: Boolean(this.getRandom(0, 1)),
+          user: user,
+          date: date,
+        });
 
-      medias.push(media);
+        this.logger.debug(`Criando media: ${JSON.stringify(media)}`);
+      }
     }
-
-    return medias;
   }
 
-  private async createUsers(medias: Media[]) {
+  private async createUsers() {
+    const users: User[] = [];
+
     for (let i = 0; i < 5; i++) {
       const user = await this.userRepository.save({
         email: `user-${i}@gmail.com`,
@@ -78,24 +82,15 @@ export class GeneratorService {
 
       this.logger.debug(`Criando usuario: ${JSON.stringify(user)}`);
 
-      for (let j = 0; j < this.getRandom(10, 20); j++) {
-        const media = medias.at(this.getRandom(0, medias.length));
-
-        const date = new Date();
-        date.setDate(date.getDate() - this.getRandom(0, 90));
-
-        this.historyRepository.save({
-          user: user,
-          date: date,
-          media: media,
-        });
-      }
+      users.push(user);
     }
+
+    return users;
   }
 
   async run() {
     const categories = await this.createCategories();
-    const medias = await this.createMedias(categories);
-    await this.createUsers(medias);
+    const users = await this.createUsers();
+    await this.createMedias(categories, users);
   }
 }
