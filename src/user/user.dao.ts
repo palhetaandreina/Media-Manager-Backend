@@ -15,9 +15,7 @@ export class UserDAO {
     return this.repository.findOne({
       where: { id: id },
       relations: {
-        history: {
-          media: true,
-        },
+        media: true,
       },
     });
   }

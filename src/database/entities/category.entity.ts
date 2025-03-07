@@ -10,6 +10,7 @@ export class Category {
   @Column('varchar', {
     length: 50,
     nullable: false,
+    unique: true,
   })
   name: string;
 }

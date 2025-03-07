@@ -2,20 +2,16 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Category } from '@entities/category.entity';
-import { History } from '@entities/history.entity';
 import { Media } from '@entities/media.entity';
 import { User } from '@entities/user.entity';
 
 import { AppLoggerMiddleware } from '@middlewares/applogger';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CategoryModule } from './category/category.module';
-import { HistoryModule } from './history/history.module';
+import { GeneratorModule } from './generator/generator.module';
 import { MediaModule } from './media/media.module';
 import { UserModule } from './user/user.module';
-import { GeneratorModule } from './generator/generator.module';
 
 @Module({
   imports: [
@@ -26,18 +22,17 @@ import { GeneratorModule } from './generator/generator.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [User, Media, History, Category],
+      entities: [User, Media, Category],
       synchronize: true,
     }),
     MediaModule,
     UserModule,
     CategoryModule,
-    HistoryModule,
     AuthModule,
     GeneratorModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {

@@ -1,12 +1,6 @@
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Category } from './category.entity';
-import { History } from './history.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class Media {
@@ -19,12 +13,15 @@ export class Media {
   @ManyToOne(() => Category, (category) => category.id)
   category: Category;
 
-  @OneToMany(() => History, (history) => history.media)
-  history: History[];
+  @ManyToOne(() => User, (user) => user.media)
+  user: User;
 
   @Column({ length: 50 })
   title: string;
 
   @Column()
   duration: number;
+
+  @Column('datetime', { nullable: true })
+  date: Date;
 }
