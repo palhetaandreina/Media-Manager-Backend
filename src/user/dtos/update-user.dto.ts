@@ -11,11 +11,10 @@ export class UpdateUserDTO {
   @IsString()
   name: string;
 
+  // Disabled for tesint
+  // @IsEmail()
   @IsString()
   email: string;
-
-  @IsString()
-  password: string;
 
   // Transforma o dto em entidades
   public toEntity(): User {
@@ -24,7 +23,6 @@ export class UpdateUserDTO {
     user.id = this.id;
     user.name = this.name;
     user.email = this.email;
-    user.password = this.password;
 
     return user;
   }

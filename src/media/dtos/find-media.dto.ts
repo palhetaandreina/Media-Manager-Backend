@@ -8,10 +8,12 @@ export enum FindMediaByOptions {
 }
 
 export class FindMediaDTO {
+  @IsOptional()
   @IsDate()
   @Type(() => Date)
   from: Date;
 
+  @IsOptional()
   @IsDate()
   @Type(() => Date)
   to: Date = new Date();

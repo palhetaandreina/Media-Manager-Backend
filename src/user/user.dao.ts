@@ -13,6 +13,7 @@ export class UserDAO {
 
   findById(id: number) {
     return this.repository.findOne({
+      select: ['email', 'name', 'id'],
       where: { id: id },
       relations: {
         media: true,
@@ -41,6 +42,10 @@ export class UserDAO {
       },
       user,
     );
+  }
+
+  updatePassword(id: number, password: string) {
+    return this.repository.update({ id }, { password });
   }
 
   delete(id: number) {

@@ -1,5 +1,5 @@
 import { User } from '@entities/user.entity';
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export class CreateUserDTO {
   @IsString()
@@ -7,11 +7,14 @@ export class CreateUserDTO {
   @MinLength(5)
   name: string;
 
-  @IsEmail()
+  // Disabled for tesint
+  // @IsEmail()
+  @IsString()
   @IsNotEmpty()
   email: string;
 
   @IsString()
+  @MinLength(8)
   @IsNotEmpty()
   password: string;
 

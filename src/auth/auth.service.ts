@@ -18,6 +18,7 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
+    // caso esteja autenticado as info sao armazenadas no payload
     const payload = { sub: user.id, username: user.name };
 
     return {

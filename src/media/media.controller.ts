@@ -92,7 +92,7 @@ export class MediaController {
   ): Promise<MediaStatsObject> {
     const userId = req.user.sub;
 
-    return this.service.getHoursStats(userId, query.from, query.to, query.by);
+    return this.service.getHoursStats(userId, query.by, query.from, query.to);
   }
 
   @Get('/stats/category')

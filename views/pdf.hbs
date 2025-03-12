@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <style>
+      html { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace; } p { margin-top: 0; }
+    </style>
+  </head>
+  <body>
+    <section>
+      <h1>Relatório de filmes e séries cadastrados</h1>
+      <p><b>Data de geração:</b> {{date}}</p>
+    </section>
+
+    <section>
+      <p><b>Nome</b>: {{userInfo.name}}</p>
+      <p><b>Email</b>: {{userInfo.email}}</p>
+    </section>
+
+    <section>
+      <h3>Ranking de categorias mais assistidas</h3>
+
+      <ul>
+        {{#each categories}}
+          <li>{{this.category}}: {{this.total}} Registros</li>
+        {{/each}}
+      </ul>
+
+      <p>Total de Registros: {{consumedTotal}} </p>
+    </section>
+
+    <section>
+      <h3>Estatísticas por tipo</h3>
+
+      <div style='display: flex'>
+        <section style='flex: 1'>
+          <h4>Filmes</h4>
+
+          <div style='display: flex; flex-direction: column;'>
+            <p>Tempo assistido: {{statsPerType.filmes.watchTime}} horas</p>
+            <p>Total: {{statsPerType.filmes.count}}</p>
+          </div>
+
+          <div>
+            <span>Histórico:</span>
+
+            <ul>
+              {{#each statsPerType.filmes.history}}
+                <li>{{this.title}} - {{this.duration}} minutos</li>
+              {{/each}}
+            </ul>
+          </div>
+        </section>
+
+        <section style='flex: 1'>
+          <h4>Séries</h4>
+
+          <div style='display: flex; flex-direction: column;'>
+            <p>Tempo assistido: {{statsPerType.series.watchTime}} horas</p>
+            <p>Total: {{statsPerType.series.count}}</p>
+          </div>
+          <div>
+            <span>Histórico:</span>
+
+            <ul>
+              {{#each statsPerType.series.history}}
+                <li>{{this.title}} - {{this.duration}} minutos</li>
+              {{/each}}
+            </ul>
+          </div>
+        </section>
+      </div>
+    </section>
+  </body>
+</html>

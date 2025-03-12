@@ -7,6 +7,7 @@ import { User } from '@entities/user.entity';
 
 import { AppLoggerMiddleware } from '@middlewares/applogger';
 
+import { AnalyticsModule } from './analytics/analytics.module';
 import { AuthModule } from './auth/auth.module';
 import { CategoryModule } from './category/category.module';
 import { GeneratorModule } from './generator/generator.module';
@@ -30,6 +31,7 @@ import { UserModule } from './user/user.module';
     CategoryModule,
     AuthModule,
     GeneratorModule,
+    AnalyticsModule,
   ],
   controllers: [],
   providers: [],
